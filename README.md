@@ -8,11 +8,13 @@ These instructions will get you a copy of the project up and running on your loc
 
 ### Prerequisites
 
-What things you need to install the software and how to install them
-
-```
-Give examples
-```
+- XAMPP
+- SQLyog (optional, can use phpMyAdmin)
+- Composer
+- Node.js
+- PHP (version 7.2 or higher)
+- Slim Framework
+- JWT PHP Library
 
 ### Installing
 
