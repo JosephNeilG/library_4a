@@ -25,8 +25,9 @@ The Library Management System provides a secure and efficient way to manage book
 
    ```
 
-2. **Install Dependencies**  
-   Use Composer to install PHP dependencies:
+2. **Install Dependencies**
+
+   - Use Composer to install PHP dependencies:
 
    ```bash
    composer install
@@ -71,8 +72,9 @@ The Library Management System provides a secure and efficient way to manage book
    );
    ```
 
-4. Configure Database Connection:
-   Edit the connection details in index.php as follows:
+4. **Configure Database Connection**
+
+   - Edit the connection details in index.php as follows:
 
    ```php
    <?php
@@ -85,13 +87,12 @@ The Library Management System provides a secure and efficient way to manage book
 
    Replace these values with your actual database settings to connect to the library database.
 
-5. Start XAMPP Server
-   Ensure that both Apache and MySQL are running in the XAMPP control panel.
+5. **Start XAMPP Server**
 
-6. Testing the Application
-   You can now use API testing tools like Postman or Thunder Client to test the CRUD operations and authentication endpoints.
+   - Ensure that both Apache and MySQL are running in the XAMPP control panel.
 
-End with an example of getting some data out of the system or using it for a little demo
+6. **Testing the Application**
+   - You can now use API testing tools like Postman or Thunder Client to test the CRUD operations and authentication endpoints.
 
 ## Running the tests
 
