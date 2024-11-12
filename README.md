@@ -38,7 +38,6 @@ The Library Management System provides a secure and efficient way to manage book
    - Run the following SQL queries to create the required tables:
 
    ```sql
-   -- Create `users` table
    CREATE TABLE users (
        userid INT(9) NOT NULL AUTO_INCREMENT,
        username CHAR(255) NOT NULL,
@@ -46,21 +45,18 @@ The Library Management System provides a secure and efficient way to manage book
        PRIMARY KEY (userid)
    );
 
-   -- Create `authors` table
    CREATE TABLE authors (
        authorid INT(9) NOT NULL AUTO_INCREMENT,
        name CHAR(255) NOT NULL,
        PRIMARY KEY (authorid)
    );
 
-   -- Create `books` table
    CREATE TABLE books (
        bookid INT(9) NOT NULL AUTO_INCREMENT,
        title CHAR(255) NOT NULL,
        PRIMARY KEY (bookid)
    );
 
-   -- Create `books_authors` table
    CREATE TABLE books_authors (
        collectionid INT(9) NOT NULL AUTO_INCREMENT,
        bookid INT(9) NOT NULL,
@@ -68,12 +64,26 @@ The Library Management System provides a secure and efficient way to manage book
        PRIMARY KEY (collectionid)
    );
 
-   -- Create `used_tokens` table (provided)
    CREATE TABLE used_tokens (
        token VARCHAR(512) PRIMARY KEY,
        used_at DATETIME NOT NULL
    );
    ```
+
+4. Configure Database Connection:
+
+   Edit the connection details in index.php as follows:
+
+   ```php
+   <?php
+   $servername = "localhost";
+   $username = "root";
+   $password = "password";
+   $dbname = "library";
+   ?>
+   ```
+
+   Replace these values with your actual database settings to connect to the library database.
 
 End with an example of getting some data out of the system or using it for a little demo
 
