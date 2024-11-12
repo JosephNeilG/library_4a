@@ -4,8 +4,6 @@ The Library Management System provides a secure and efficient way to manage book
 
 ## Getting Started
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
-
 ### Prerequisites
 
 - XAMPP
@@ -18,19 +16,64 @@ These instructions will get you a copy of the project up and running on your loc
 
 ### Installing
 
-A step by step series of examples that tell you how to get a development env running
+1. **Clone the Repository**
 
-Say what the step will be
+   ```bash
+   git clone https://github.com/github_username/library_4a.git
+   cd /path/to/xampp/htdocs/library_4a
 
-```
-Give the example
-```
+   ```
 
-And repeat
+2. **Install Dependencies**  
+   Use Composer to install PHP dependencies:
 
-```
-until finished
-```
+   ```bash
+   composer install
+
+   ```
+
+3. **Set Up Database**
+
+   - Open SQLyog or phpMyAdmin and create a new database called `library`.
+   - Run the following SQL queries to create the required tables:
+
+   ```sql
+   -- Create `users` table
+   CREATE TABLE users (
+       userid INT(9) NOT NULL AUTO_INCREMENT,
+       username CHAR(255) NOT NULL,
+       password TEXT NOT NULL,
+       PRIMARY KEY (userid)
+   );
+
+   -- Create `authors` table
+   CREATE TABLE authors (
+       authorid INT(9) NOT NULL AUTO_INCREMENT,
+       name CHAR(255) NOT NULL,
+       PRIMARY KEY (authorid)
+   );
+
+   -- Create `books` table
+   CREATE TABLE books (
+       bookid INT(9) NOT NULL AUTO_INCREMENT,
+       title CHAR(255) NOT NULL,
+       PRIMARY KEY (bookid)
+   );
+
+   -- Create `books_authors` table
+   CREATE TABLE books_authors (
+       collectionid INT(9) NOT NULL AUTO_INCREMENT,
+       bookid INT(9) NOT NULL,
+       authorid INT(9) NOT NULL,
+       PRIMARY KEY (collectionid)
+   );
+
+   -- Create `used_tokens` table (provided)
+   CREATE TABLE used_tokens (
+       token VARCHAR(512) PRIMARY KEY,
+       used_at DATETIME NOT NULL
+   );
+   ```
 
 End with an example of getting some data out of the system or using it for a little demo
 
