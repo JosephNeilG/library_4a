@@ -6,16 +6,14 @@ The Library Management System provides a secure and efficient way to manage book
 
 ### Prerequisites
 
-### Built With
-
-- [![XAMPP][XAMPP-icon]][XAMPP-url]
-- [![SQLyog][SQLyog-icon]][SQLyog-url] (Optional, can use [phpMyAdmin][phpMyAdmin-url])
-- [![Composer][Composer-icon]][Composer-url]
-- [![Node.js][Node.js-icon]][Node.js-url]
-- [![PHP][PHP-icon]][PHP-url] (Version 7.2 or higher)
-- [![Slim Framework][Slim-Framework-icon]][Slim-Framework-url]
-- [![JWT PHP Library][JWT-icon]][JWT-url]
-- [![ThunderClient][ThunderClient-icon]][ThunderClient-url]
+- XAMPP
+- SQLyog (optional, can use phpMyAdmin)
+- Composer
+- Node.js
+- PHP (version 7.2 or higher)
+- Slim Framework
+- JWT PHP Library
+- ThunderClient
 
 ### Installing
 
