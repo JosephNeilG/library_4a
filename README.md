@@ -96,7 +96,7 @@ The Library Management System provides a secure and efficient way to manage book
 
 ## Usage
 
-### 1. User Endpoints
+## 1. User Endpoints
 
 **a. User Registration** - Registers a new user with a unique username and a hashed password.
 
@@ -259,7 +259,7 @@ The Library Management System provides a secure and efficient way to manage book
 
   - **Failure:** If the user doesn’t exist, or if the token is invalid, expired, or already used, an appropriate error message.
 
-### 2. Author Endpoints
+## 2. Author Endpoints
 
 **a. Add Author** - Adds a new author to the database.
 
@@ -355,25 +355,6 @@ The Library Management System provides a secure and efficient way to manage book
     ```
 
   - **Failure:** If the token has already been used, is invalid, expired, or if the author ID is missing or not found, an appropriate error message will be returned.
-
-**e. Delete User** - Deletes the authenticated user’s account from the system; requires a valid token.
-
-- **Endpoint:** `/user/delete`
-- **Method:** `DELETE`
-- **Headers:** `Authorization: Bearer <insert generated jwtTokenHere from the users/authenticate>`
-
-- **Expected Response:**
-
-  - **Success:**
-
-    ```json
-    {
-      "status": "success",
-      "data": null
-    }
-    ```
-
-  - **Failure:** If the user doesn’t exist, or if the token is invalid, expired, or already used, an appropriate error message.
 
 ### And coding style tests
 
