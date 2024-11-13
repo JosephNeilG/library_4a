@@ -173,7 +173,7 @@ The Library Management System provides a secure and efficient way to manage book
 
 - **Endpoint:** `/user/display`
 - **Method:** `GET`
-- **Headers:** `Authorization: Bearer <insert generated jwtTokenHere from the users/authenticate`
+- **Headers:** `Authorization: Bearer <insert generated jwtTokenHere from the users/authenticate>`
 
 - **Expected Response:**
 
@@ -212,6 +212,44 @@ The Library Management System provides a secure and efficient way to manage book
       }
     }
     ```
+
+**d. Update User Information** - Updates the user's username and/or password; requires a valid token.
+
+- **Endpoint:** `/user/update`
+- **Method:** `PUT`
+- **Headers:** `Authorization: Bearer <insert generated jwtTokenHere from the users/authenticate>`
+- **Sample Payload:**
+
+  ```json
+  {
+    "username": "updatedUser",
+    "password": "newSecurePassword"
+  }
+  ```
+
+- **Expected Response:**
+
+  - **Success:**
+
+    ```json
+    {
+      "status": "success",
+      "data": null
+    }
+    ```
+
+  - **Failure:** Token Already Used
+
+    ```json
+    {
+      "status": "fail",
+      "data": {
+        "title": "Token has already been used"
+      }
+    }
+    ```
+
+  - **Failure:** If the new username is taken, if there’s nothing to update, or if the token is invalid, expired, or already used, an appropriate error message.
 
 ### And coding style tests
 
