@@ -96,15 +96,9 @@ The Library Management System provides a secure and efficient way to manage book
 
 ## Usage
 
-Explain how to run the automated tests for this system
-
-### Break down into end to end tests
-
 ### User Endpoints
 
-### User Registration
-
-- Registers a new user with a unique username and a hashed password.
+**User Registration** - Registers a new user with a unique username and a hashed password.
 
 - **Endpoint:** `/user/register`
 - **Method:** `POST`
@@ -118,13 +112,16 @@ Explain how to run the automated tests for this system
   ```
 
 - **Expected Response:**
+
   - **Success:**
+
     ```json
     {
       "status": "success",
       "data": null
     }
     ```
+
   - **Failure:** If the username is already taken or the password is empty, an appropriate error message.
 
 ### Authenticate Users
