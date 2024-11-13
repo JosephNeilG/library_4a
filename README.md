@@ -602,17 +602,51 @@ The Library Management System provides a secure and efficient way to manage book
 
   - **Failure:** If the token is already used, invalid/expired, if the collection ID is missing or no association exists for the given ID, the response will indicate the specific error.
 
-### And coding style tests
+## Token Management
 
-Explain what these tests test and why
+**Check if Token is Used**  
+The `isTokenUsed` function checks the `used_tokens` table to see if the token has been recorded as used.
 
+```php
+function isTokenUsed($token, $conn)
+{
+    $stmt = $conn->prepare("SELECT * FROM used_tokens WHERE token = :token");
+    $stmt->bindParam(':token', $token);
+    $stmt->execute();
+    return $stmt->rowCount() > 0;  // Returns true if token is found (i.e., used)
+}
 ```
-Give an example
+
+**Validate Token**  
+The `validateToken` function decodes and validates the token using the secret key, returning `false` if the token is invalid or expired.
+
+```php
+function validateToken($token, $key)
+{
+    try {
+        return JWT::decode($token, new Key($key, 'HS256'));
+    } catch (Exception $e) {
+        return false;  // Token is invalid or expired
+    }
+}
 ```
 
-## Deployment
+**Mark Token as Used**  
+The `markTokenAsUsed` function inserts the token into the `used_tokens` table, marking it as used to prevent reuse.
 
-Add additional notes about how to deploy this on a live system
+```php
+function markTokenAsUsed($conn, $token)
+{
+    try {
+        $stmt = $conn->prepare("INSERT INTO used_tokens (token) VALUES (:token)");
+        $stmt->bindParam(':token', $token);
+        $stmt->execute();
+    } catch (PDOException $e) {
+        // Handle potential errors (optional)
+        throw new Exception("Error marking token as used: " . $e->getMessage());
+    }
+}
+```
 
 ## Built With
 
