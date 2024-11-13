@@ -664,6 +664,15 @@ function markTokenAsUsed($conn, $token)
 - **Q: Can I use the same token multiple times?**  
   **A:** No, the token can only be used once. After it is used, it will be marked as "used" in the database, and any subsequent attempts to reuse it will result in a "Token already used" error.
 
+- **Q: Where will I put the token if I'm using Thunder Client?**  
+  **A:**
+  - Open Thunder Client and create a new request.
+  - Go to the "Headers" tab.
+  - Add a new key called `Authorization`.
+  - Set the value to `Bearer <your_token>`, where `<your_token>` is the JWT token you want to use.  
+    For example:  
+    `Authorization: Bearer your_token_here`
+
 ## Contributing
 
 Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c63ec426) for details on our code of conduct, and the process for submitting pull requests to us.
