@@ -238,18 +238,142 @@ The Library Management System provides a secure and efficient way to manage book
     }
     ```
 
-  - **Failure:** Token Already Used
+  - **Failure:** If the new username is taken, if there’s nothing to update, or if the token is invalid, expired, or already used, an appropriate error message.
+
+**e. Delete User** - Deletes the authenticated user’s account from the system; requires a valid token.
+
+- **Endpoint:** `/user/delete`
+- **Method:** `DELETE`
+- **Headers:** `Authorization: Bearer <insert generated jwtTokenHere from the users/authenticate>`
+
+- **Expected Response:**
+
+  - **Success:**
 
     ```json
     {
-      "status": "fail",
-      "data": {
-        "title": "Token has already been used"
-      }
+      "status": "success",
+      "data": null
     }
     ```
 
-  - **Failure:** If the new username is taken, if there’s nothing to update, or if the token is invalid, expired, or already used, an appropriate error message.
+  - **Failure:** If the user doesn’t exist, or if the token is invalid, expired, or already used, an appropriate error message.
+
+### 2. Author Endpoints
+
+**a. Add Author** - Adds a new author to the database.
+
+- **Endpoint:** `/author/add`
+- **Method:** `POST`
+- **Headers:** `Authorization: Bearer <insert generated jwtTokenHere from the users/authenticate>`
+- **Sample Payload:**
+
+  ```json
+  {
+    "name": "Author Name"
+  }
+  ```
+
+- **Expected Response:**
+
+  - **Success:**
+
+    ```json
+    {
+      "status": "success",
+      "data": null
+    }
+    ```
+
+  - **Failure:** If the token is invalid, expired, already used, or if the name is empty or the author already exists, an appropriate error message will be returned.
+
+**b. Display Author** - Displays a list of authors from the database.
+
+- **Endpoint:** `/author/display`
+- **Method:** `GET`
+- **Headers:** `Authorization: Bearer <insert generated jwtTokenHere from the users/authenticate>`
+
+- **Expected Response:**
+
+  - **Success:**
+
+    ```json
+    {
+      "status": "success",
+      "data": [
+        {
+          "authorid": 1,
+          "name": "Author Name"
+        }
+      ]
+    }
+    ```
+
+  - **Failure:** If the token has already been used, is invalid, or has expired, an appropriate error message will be returned.
+
+**c. Update Author** - Updates an author's information in the database.
+
+- **Endpoint:** `/author/update`
+- **Method:** `PUT`
+- **Headers:** `Authorization: Bearer <insert generated jwtTokenHere from the users/authenticate>`
+
+- **Expected Response:**
+
+  - **Success:**
+
+    ```json
+    {
+      "authorid": 1,
+      "name": "Updated Author Name"
+    }
+    ```
+
+  - **Failure:** If the token has already been used, is invalid, expired, or if the author ID is missing or not found, or if there are no fields to update, an appropriate error message will be returned.
+
+**d. Delete Author** - Deletes an author from the database.
+
+- **Endpoint:** `/author/delete`
+- **Method:** `DELETE`
+- **Headers:** `Authorization: Bearer <insert generated jwtTokenHere from the users/authenticate>`
+- **Sample Payload:**
+
+  ```json
+  {
+    "authorid": 1
+  }
+  ```
+
+- **Expected Response:**
+
+  - **Success:**
+
+    ```json
+    {
+      "status": "success",
+      "data": null
+    }
+    ```
+
+  - **Failure:** If the token has already been used, is invalid, expired, or if the author ID is missing or not found, an appropriate error message will be returned.
+
+**e. Delete User** - Deletes the authenticated user’s account from the system; requires a valid token.
+
+- **Endpoint:** `/user/delete`
+- **Method:** `DELETE`
+- **Headers:** `Authorization: Bearer <insert generated jwtTokenHere from the users/authenticate>`
+
+- **Expected Response:**
+
+  - **Success:**
+
+    ```json
+    {
+      "status": "success",
+      "data": null
+    }
+    ```
+
+  - **Failure:** If the user doesn’t exist, or if the token is invalid, expired, or already used, an appropriate error message.
 
 ### And coding style tests
 
