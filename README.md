@@ -191,7 +191,7 @@ The Library Management System provides a secure and efficient way to manage book
     }
     ```
 
-  - **Failure: Token Already Used**
+  - **Failure:** Token Already Used
 
     ```json
     {
@@ -202,7 +202,7 @@ The Library Management System provides a secure and efficient way to manage book
     }
     ```
 
-  - **Failure: Invalid or Expired Token**
+  - **Failure:** Invalid or Expired Token
 
     ```json
     {
