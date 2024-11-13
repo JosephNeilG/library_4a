@@ -647,7 +647,7 @@ function markTokenAsUsed($conn, $token)
 }
 ```
 
-## Built With
+## Troubleshooting / FAQ
 
 - **Q: How do I regenerate an expired token?**  
   **A:** To regenerate an expired token, you need to log in again by providing valid credentials. The new token will be issued upon successful authentication.
