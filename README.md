@@ -364,7 +364,7 @@ The Library Management System provides a secure and efficient way to manage book
 
   - **Failure:** If the token has already been used, is invalid, expired, or if the author ID is missing or not found, an appropriate error message will be returned.
 
-## 2. Book Endpoints
+## 3. Book Endpoints
 
 **a. Add Book** - Adds a new book to the database.
 
@@ -468,6 +468,139 @@ The Library Management System provides a secure and efficient way to manage book
     ```
 
   - **Failure:** If the token has already been used, is invalid, expired, or if the book ID is missing or not found, an appropriate error message will be returned.
+
+## 4. Book-Author Association Endpoints
+
+**a. Add Book-Author** - Adds a new association between a book and an author.
+
+- **Endpoint:** `/books_author/add`
+- **Method:** `POST`
+- **Headers:** `Authorization: Bearer <insert generated jwtTokenHere from the users/authenticate>`
+- **Sample Payload:**
+
+  ```json
+  {
+    "bookid": 1,
+    "authorid": 2
+  }
+  ```
+
+- **Expected Response:**
+
+  - **Success:**
+
+    ```json
+    {
+      "status": "success",
+      "data": null
+    }
+    ```
+
+  - **Failure:** If the token is already used, invalid/expired, or if required fields (book ID or author ID) are missing, the response will indicate the specific error.
+
+**b. Display All Book-Author** - Displays all book-author associations in the database with their corresponding IDs.
+
+- **Endpoint:** `/books_author/display`
+- **Method:** `GET`
+- **Headers:** `Authorization: Bearer <insert generated jwtTokenHere from the users/authenticate>`
+
+- **Expected Response:**
+
+  - **Success:**
+
+    ```json
+    {
+      "status": "success",
+      "data": [
+        {
+          "collectionid": 1,
+          "bookid": 1,
+          "authorid": 2
+        }
+      ]
+    }
+    ```
+
+  - **Failure:** If the token is already used, invalid/expired, or any database issue occurs, the response will indicate the specific error.
+
+**c. Display Book-Author with Names** - Displays book-author associations with the book and author names instead of IDs.
+
+- **Endpoint:** `/books_author/display_with_names`
+- **Method:** `GET`
+- **Headers:** `Authorization: Bearer <insert generated jwtTokenHere from the users/authenticate>`
+
+- **Expected Response:**
+
+  - **Success:**
+
+    ```json
+    {
+      "status": "success",
+      "data": [
+        {
+          "collectionid": 1,
+          "book_name": "Book Title 1",
+          "author_name": "Author Name 1"
+        }
+      ]
+    }
+    ```
+
+  - **Failure:** If the token is already used, invalid/expired, or any database issue occurs, the response will indicate the specific error.
+
+**d. Update Book-Author** - Updates an existing book-author association by changing the book and/or author ID.
+
+- **Endpoint:** `/books_author/update`
+- **Method:** `PUT`
+- **Headers:** `Authorization: Bearer <insert generated jwtTokenHere from the users/authenticate>`
+- **Sample Payload:**
+
+  ```json
+  {
+    "collectionid": 1,
+    "bookid": 2,
+    "authorid": 3
+  }
+  ```
+
+- **Expected Response:**
+
+  - **Success:**
+
+    ```json
+    {
+      "status": "success",
+      "data": null
+    }
+    ```
+
+  - **Failure:** If the token is already used, invalid/expired, if the collection ID is missing or not found, or no fields are provided to update, the response will indicate the specific error.
+
+**e. Delete Book-Author** - Deletes a specific book-author association.
+
+- **Endpoint:** `/books_author/delete`
+- **Method:** `DELETE`
+- **Headers:** `Authorization: Bearer <insert generated jwtTokenHere from the users/authenticate>`
+- **Sample Payload:**
+
+  ```json
+  {
+    "collectionid": 1
+  }
+  ```
+
+- **Expected Response:**
+
+  - **Success:**
+
+    ```json
+    {
+      "status": "success",
+      "data": null
+    }
+    ```
+
+  - **Failure:** If the token is already used, invalid/expired, if the collection ID is missing or no association exists for the given ID, the response will indicate the specific error.
 
 ### And coding style tests
 
