@@ -649,9 +649,20 @@ function markTokenAsUsed($conn, $token)
 
 ## Built With
 
-- [Dropwizard](http://www.dropwizard.io/1.0.2/docs/) - The web framework used
-- [Maven](https://maven.apache.org/) - Dependency Management
-- [ROME](https://rometools.github.io/rome/) - Used to generate RSS Feeds
+- **Q: How do I regenerate an expired token?**  
+  **A:** To regenerate an expired token, you need to log in again by providing valid credentials. The new token will be issued upon successful authentication.
+
+- **Q: Why am I getting a "Token is invalid" error?**  
+  **A:** This error occurs if the token is either malformed or has expired. Ensure the token is correctly formatted and that it is not expired. If necessary, regenerate a new token.
+
+- **Q: How do I check if my token has already been used?**  
+  **A:** You can check if your token has been used by calling the API endpoint that checks the token's status, or by inspecting the `used_tokens` table in the database.
+
+- **Q: What should I do if I get a "Token expired" error when calling the API?**  
+  **A:** This error means the token has expired. Regenerate the token by logging in again, and ensure you are using the new token for your API requests.
+
+- **Q: Can I use the same token multiple times?**  
+  **A:** No, the token can only be used once. After it is used, it will be marked as "used" in the database, and any subsequent attempts to reuse it will result in a "Token already used" error.
 
 ## Contributing
 
