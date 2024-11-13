@@ -122,7 +122,16 @@ The Library Management System provides a secure and efficient way to manage book
     }
     ```
 
-  - **Failure:** If the username is already taken or the password is empty, an appropriate error message.
+  - **Failure:**
+
+    ```json
+    {
+      "status": "fail",
+      "data": {
+        "title": "<Error Message Here>"
+      }
+    }
+    ```
 
 **b. User Authentication** - Authenticates a user and generates a JWT token for session management.
 
