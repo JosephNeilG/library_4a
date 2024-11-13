@@ -96,7 +96,7 @@ The Library Management System provides a secure and efficient way to manage book
 
 ## Usage
 
-## 1. User Endpoints
+### 1. User Endpoints
 
 **a. User Registration** - Registers a new user with a unique username and a hashed password.
 
@@ -259,7 +259,7 @@ The Library Management System provides a secure and efficient way to manage book
 
   - **Failure:** If the user doesn’t exist, or if the token is invalid, expired, or already used, an appropriate error message.
 
-## 2. Author Endpoints
+### 2. Author Endpoints
 
 **a. Add Author** - Adds a new author to the database.
 
@@ -364,7 +364,7 @@ The Library Management System provides a secure and efficient way to manage book
 
   - **Failure:** If the token has already been used, is invalid, expired, or if the author ID is missing or not found, an appropriate error message will be returned.
 
-## 3. Book Endpoints
+### 3. Book Endpoints
 
 **a. Add Book** - Adds a new book to the database.
 
@@ -469,7 +469,7 @@ The Library Management System provides a secure and efficient way to manage book
 
   - **Failure:** If the token has already been used, is invalid, expired, or if the book ID is missing or not found, an appropriate error message will be returned.
 
-## 4. Book-Author Association Endpoints
+### 4. Book-Author Association Endpoints
 
 **a. Add Book-Author** - Adds a new association between a book and an author.
 
