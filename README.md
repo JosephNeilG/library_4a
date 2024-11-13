@@ -416,7 +416,7 @@ The Library Management System provides a secure and efficient way to manage book
 
   - **Failure:** If the token has already been used, is invalid, or expired, an appropriate error message will be returned.
 
-**c. Update Book ** - Updates a book's information in the database.
+**c. Update Book** - Updates a book's information in the database.
 
 - **Endpoint:** `/book/update`
 - **Method:** `PUT`
@@ -443,7 +443,7 @@ The Library Management System provides a secure and efficient way to manage book
 
   - **Failure:** If the token has already been used, is invalid, expired, or if the book ID is missing or not found, or if there are no fields to update, an appropriate error message will be returned.
 
-**d. Delete Book ** - Deletes a book from the database.
+**d. Delete Book** - Deletes a book from the database.
 
 - **Endpoint:** `/book/delete`
 - **Method:** `DELETE`
