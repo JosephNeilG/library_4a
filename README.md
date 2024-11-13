@@ -316,6 +316,14 @@ The Library Management System provides a secure and efficient way to manage book
 - **Endpoint:** `/author/update`
 - **Method:** `PUT`
 - **Headers:** `Authorization: Bearer <insert generated jwtTokenHere from the users/authenticate>`
+- **Sample Payload:**
+
+  ```json
+  {
+    "authorid": 1,
+    "name": "Updated Author Name"
+  }
+  ```
 
 - **Expected Response:**
 
@@ -323,8 +331,8 @@ The Library Management System provides a secure and efficient way to manage book
 
     ```json
     {
-      "authorid": 1,
-      "name": "Updated Author Name"
+      "status": "success",
+      "data": null
     }
     ```
 
@@ -355,6 +363,111 @@ The Library Management System provides a secure and efficient way to manage book
     ```
 
   - **Failure:** If the token has already been used, is invalid, expired, or if the author ID is missing or not found, an appropriate error message will be returned.
+
+## 2. Book Endpoints
+
+**a. Add Book** - Adds a new book to the database.
+
+- **Endpoint:** `/book/add`
+- **Method:** `POST`
+- **Headers:** `Authorization: Bearer <insert generated jwtTokenHere from the users/authenticate>`
+- **Sample Payload:**
+
+  ```json
+  {
+    "title": "Book Title"
+  }
+  ```
+
+- **Expected Response:**
+
+  - **Success:**
+
+    ```json
+    {
+      "status": "success",
+      "data": null
+    }
+    ```
+
+  - **Failure:** If the token is invalid, expired, already used, or if the title is empty or the book already exists, an appropriate error message will be returned.
+
+**b. Display Books** - Displays a list of books from the database.
+
+- **Endpoint:** `/book/display`
+- **Method:** `GET`
+- **Headers:** `Authorization: Bearer <insert generated jwtTokenHere from the users/authenticate>`
+
+- **Expected Response:**
+
+  - **Success:**
+
+    ```json
+    {
+      "status": "success",
+      "data": [
+        {
+          "bookid": 1,
+          "title": "Book Title"
+        }
+      ]
+    }
+    ```
+
+  - **Failure:** If the token has already been used, is invalid, or expired, an appropriate error message will be returned.
+
+**c. Update Book ** - Updates a book's information in the database.
+
+- **Endpoint:** `/book/update`
+- **Method:** `PUT`
+- **Headers:** `Authorization: Bearer <insert generated jwtTokenHere from the users/authenticate>`
+- **Sample Payload:**
+
+  ```json
+  {
+    "bookid": 1,
+    "title": "Updated Book Title"
+  }
+  ```
+
+- **Expected Response:**
+
+  - **Success:**
+
+    ```json
+    {
+      "status": "success",
+      "data": null
+    }
+    ```
+
+  - **Failure:** If the token has already been used, is invalid, expired, or if the book ID is missing or not found, or if there are no fields to update, an appropriate error message will be returned.
+
+**d. Delete Book ** - Deletes a book from the database.
+
+- **Endpoint:** `/book/delete`
+- **Method:** `DELETE`
+- **Headers:** `Authorization: Bearer <insert generated jwtTokenHere from the users/authenticate>`
+- **Sample Payload:**
+
+  ```json
+  {
+    "bookid": 1
+  }
+  ```
+
+- **Expected Response:**
+
+  - **Success:**
+
+    ```json
+    {
+      "status": "success",
+      "data": null
+    }
+    ```
+
+  - **Failure:** If the token has already been used, is invalid, expired, or if the book ID is missing or not found, an appropriate error message will be returned.
 
 ### And coding style tests
 
