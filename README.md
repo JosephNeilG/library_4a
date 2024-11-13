@@ -96,9 +96,9 @@ The Library Management System provides a secure and efficient way to manage book
 
 ## Usage
 
-### User Endpoints
+### 1. User Endpoints
 
-**User Registration** - Registers a new user with a unique username and a hashed password.
+**a. User Registration** - Registers a new user with a unique username and a hashed password.
 
 - **Endpoint:** `/user/register`
 - **Method:** `POST`
