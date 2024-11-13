@@ -1,5 +1,35 @@
 # Library Management System with Token-Based Authentication
 
+<!-- TABLE OF CONTENTS -->
+<details>
+  <summary>Table of Contents</summary>
+  <ol>
+    <li>
+      <a href="#about-the-project">About The Project</a>
+    </li>
+    <li>
+      <a href="#getting-started">Getting Started</a>
+      <ul>
+        <li><a href="#prerequisites">Prerequisites</a></li>
+        <li><a href="#installation">Installing</a></li>
+      </ul>
+    </li>
+    <li><a href="#usage">Usage</a>
+        <ul>
+        <li><a href="#user-endpoints">User Endpoints</a></li>
+        <li><a href="#author-endpoints">Author Endpoints</a></li>
+        <li><a href="#book-endpoints">book Endpoints</a></li>
+        <li><a href="#book-author-asssociation-endpoints">Book-Author Association Endpoints</a></li>
+      </ul>
+    </li>
+    <li><a href="#token-management">Token Management</a></li>
+    <li><a href="#troubleshooting--faq">Troubleshooting / FAQ</a></li>
+    <li><a href="#project-information">Project Information</a></li>
+  </ol>
+</details>
+
+## About the Project
+
 The Library Management System provides a secure and efficient way to manage books, authors, users, and book-author relationships. It supports CRUD operations for users (register, authenticate, display, update, delete), books, authors, and book-author associations. Token-based authentication ensures secure access, with validation and usage tracking to restrict operations to authorized users. The book-author relationship table enhances flexibility, linking books to their respective authors. The system aims to facilitate easy and secure management of library data while maintaining a high level of security.
 
 ## Getting Started
