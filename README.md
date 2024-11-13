@@ -169,6 +169,50 @@ The Library Management System provides a secure and efficient way to manage book
     }
     ```
 
+**c. Display Users** - Retrieves a list of all users in the system; requires a valid token.
+
+- **Endpoint:** `/user/display`
+- **Method:** `GET`
+- **Headers:** `Authorization: Bearer <insert generated jwtTokenHere from the users/authenticate`
+
+- **Expected Response:**
+
+  - **Success:**
+
+    ```json
+    {
+      "status": "success",
+      "data": [
+        {
+          "userid": 1,
+          "username": "username"
+        }
+      ]
+    }
+    ```
+
+  - **Failure: Token Already Used**
+
+    ```json
+    {
+      "status": "fail",
+      "data": {
+        "title": "Token has already been used"
+      }
+    }
+    ```
+
+  - **Failure: Invalid or Expired Token**
+
+    ```json
+    {
+      "status": "fail",
+      "data": {
+        "title": "Invalid or expired token"
+      }
+    }
+    ```
+
 ### And coding style tests
 
 Explain what these tests test and why
