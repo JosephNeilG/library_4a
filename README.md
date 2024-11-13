@@ -1,11 +1,11 @@
-# Library Management System with Token-Based Authentication
+<h1 id="library-management-system">Library Management System with Token-Based Authentication</h1>
 
 <!-- TABLE OF CONTENTS -->
 <details>
   <summary>Table of Contents</summary>
   <ol>
     <li>
-      <a href="#about-the-project">About The Project</a>
+      <a href="#library-management-system">About The Project</a>
     </li>
     <li>
       <a href="#getting-started">Getting Started</a>
@@ -32,7 +32,7 @@
 
 The Library Management System provides a secure and efficient way to manage books, authors, users, and book-author relationships. It supports CRUD operations for users (register, authenticate, display, update, delete), books, authors, and book-author associations. Token-based authentication ensures secure access, with validation and usage tracking to restrict operations to authorized users. The book-author relationship table enhances flexibility, linking books to their respective authors. The system aims to facilitate easy and secure management of library data while maintaining a high level of security.
 
-<p align="right">(<a href="#about-the-project">back to top</a>)</p>
+<p align="right">(<a href="#library-management-system">back to top</a>)</p>
 
 ## Getting Started
 
@@ -126,7 +126,7 @@ The Library Management System provides a secure and efficient way to manage book
 6. **Testing the Application**
    - You can now use API testing tools like Postman or Thunder Client to test the CRUD operations and authentication endpoints.
 
-<p align="right">(<a href="#about-the-project">back to top</a>)</p>
+<p align="right">(<a href="#library-management-system">back to top</a>)</p>
 
 ## Usage
 
@@ -293,7 +293,7 @@ The Library Management System provides a secure and efficient way to manage book
 
   - **Failure:** If the user doesn’t exist, or if the token is invalid, expired, or already used, an appropriate error message.
 
-<p align="right">(<a href="#about-the-project">back to top</a>)</p>
+<p align="right">(<a href="#library-management-system">back to top</a>)</p>
 
 <h3 id="author-endpoints">2. Author Endpoints</h3>
 
@@ -400,7 +400,7 @@ The Library Management System provides a secure and efficient way to manage book
 
   - **Failure:** If the token has already been used, is invalid, expired, or if the author ID is missing or not found, an appropriate error message will be returned.
 
-<p align="right">(<a href="#about-the-project">back to top</a>)</p>
+<p align="right">(<a href="#library-management-system">back to top</a>)</p>
 
 <h3 id="book-endpoints">3. Book Endpoints</h3>
 
@@ -507,7 +507,7 @@ The Library Management System provides a secure and efficient way to manage book
 
   - **Failure:** If the token has already been used, is invalid, expired, or if the book ID is missing or not found, an appropriate error message will be returned.
 
-<p align="right">(<a href="#about-the-project">back to top</a>)</p>
+<p align="right">(<a href="#library-management-system">back to top</a>)</p>
 
 <h3 id="book-author-association-endpoints">4. Book-Author Association Endpoints</h3>
 
@@ -642,7 +642,7 @@ The Library Management System provides a secure and efficient way to manage book
 
   - **Failure:** If the token is already used, invalid/expired, if the collection ID is missing or no association exists for the given ID, the response will indicate the specific error.
 
-<p align="right">(<a href="#about-the-project">back to top</a>)</p>
+<p align="right">(<a href="#library-management-system">back to top</a>)</p>
 
 ## Token Management
 
@@ -689,7 +689,7 @@ function markTokenAsUsed($conn, $token)
 }
 ```
 
-<p align="right">(<a href="#about-the-project">back to top</a>)</p>
+<p align="right">(<a href="#library-management-system">back to top</a>)</p>
 
 ## Troubleshooting / FAQ
 
@@ -717,10 +717,10 @@ function markTokenAsUsed($conn, $token)
     For example:  
     `Authorization: Bearer your_token_here`
 
-<p align="right">(<a href="#about-the-project">back to top</a>)</p>
+<p align="right">(<a href="#library-management-system">back to top</a>)</p>
 
 ## Project Information
 
 This project is developed as part of a midterm school requirement for ITPC 115. It is aimed at demonstrating knowledge and skills in building secure API endpoints and token management.
 
-<p align="right">(<a href="#about-the-project">back to top</a>)</p>
+<p align="right">(<a href="#library-management-system">back to top</a>)</p>
