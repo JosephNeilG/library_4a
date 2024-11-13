@@ -289,7 +289,7 @@ The Library Management System provides a secure and efficient way to manage book
 
   - **Failure:** If the user doesn’t exist, or if the token is invalid, expired, or already used, an appropriate error message.
 
-<h3 id="author-endpoints">1. Author Endpoints</h3>
+<h3 id="author-endpoints">2. Author Endpoints</h3>
 
 **a. Add Author** - Adds a new author to the database.
 
@@ -394,7 +394,7 @@ The Library Management System provides a secure and efficient way to manage book
 
   - **Failure:** If the token has already been used, is invalid, expired, or if the author ID is missing or not found, an appropriate error message will be returned.
 
-<h3 id="book-endpoints">1. Book Endpoints</h3>
+<h3 id="book-endpoints">3. Book Endpoints</h3>
 
 **a. Add Book** - Adds a new book to the database.
 
