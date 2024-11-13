@@ -11,12 +11,12 @@
       <a href="#getting-started">Getting Started</a>
       <ul>
         <li><a href="#prerequisites">Prerequisites</a></li>
-        <li><a href="#installation">Installing</a></li>
+        <li><a href="#installing">Installing</a></li>
       </ul>
     </li>
     <li><a href="#usage">Usage</a>
         <ul>
-        <li><a href="#user-endpoints">User Endpoints</a></li>
+        <li><a href="#1.-user-endpoints">User Endpoints</a></li>
         <li><a href="#author-endpoints">Author Endpoints</a></li>
         <li><a href="#book-endpoints">book Endpoints</a></li>
         <li><a href="#book-author-asssociation-endpoints">Book-Author Association Endpoints</a></li>
