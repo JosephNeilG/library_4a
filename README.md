@@ -94,17 +94,51 @@ The Library Management System provides a secure and efficient way to manage book
 6. **Testing the Application**
    - You can now use API testing tools like Postman or Thunder Client to test the CRUD operations and authentication endpoints.
 
-## Running the tests
+## Usage
 
 Explain how to run the automated tests for this system
 
 ### Break down into end to end tests
 
-Explain what these tests test and why
+### User Endpoints
 
-```
-Give an example
-```
+### User Registration
+
+- Registers a new user with a unique username and a hashed password.
+
+- **Endpoint:** `/user/register`
+- **Method:** `POST`
+- **Sample Payload:**
+
+  ```json
+  {
+    "username": "newUser",
+    "password": "securePassword"
+  }
+  ```
+
+- **Expected Response:**
+  - **Success:**
+    ```json
+    {
+      "status": "success",
+      "data": null
+    }
+    ```
+  - **Failure:** If the username is already taken or the password is empty, an appropriate error message.
+
+### Authenticate Users
+
+- **Endpoint:** `/user/auth`
+- **Method:** `POST`
+- **Payload:**
+
+  ```json
+  {
+    "username": "your_username",
+    "password": "your_password"
+  }
+  ```
 
 ### And coding style tests
 
