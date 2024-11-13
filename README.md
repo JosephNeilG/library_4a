@@ -124,18 +124,41 @@ The Library Management System provides a secure and efficient way to manage book
 
   - **Failure:** If the username is already taken or the password is empty, an appropriate error message.
 
-### Authenticate Users
+**b. User Authentication** - Authenticates a user and generates a JWT token for session management.
 
-- **Endpoint:** `/user/auth`
+- **Endpoint:** `/user/authenticate`
 - **Method:** `POST`
-- **Payload:**
+- **Sample Payload:**
 
   ```json
   {
-    "username": "your_username",
-    "password": "your_password"
+    "username": "existingUser",
+    "password": "securePassword"
   }
   ```
+
+- **Expected Response:**
+
+  - **Success:**
+
+    ```json
+    {
+      "status": "success",
+      "token": "jwtTokenHere",
+      "data": null
+    }
+    ```
+
+  - **Failure:**
+
+    ```json
+    {
+      "status": "fail",
+      "data": {
+        "title": "Authentication Failed"
+      }
+    }
+    ```
 
 ### And coding style tests
 
