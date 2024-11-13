@@ -6,14 +6,16 @@ The Library Management System provides a secure and efficient way to manage book
 
 ### Prerequisites
 
-- XAMPP
-- SQLyog (optional, can use phpMyAdmin)
-- Composer
-- Node.js
-- PHP (version 7.2 or higher)
-- Slim Framework
-- JWT PHP Library
-- ThunderClient
+### Built With
+
+- [![XAMPP][XAMPP-icon]][XAMPP-url]
+- [![SQLyog][SQLyog-icon]][SQLyog-url] (Optional, can use [phpMyAdmin][phpMyAdmin-url])
+- [![Composer][Composer-icon]][Composer-url]
+- [![Node.js][Node.js-icon]][Node.js-url]
+- [![PHP][PHP-icon]][PHP-url] (Version 7.2 or higher)
+- [![Slim Framework][Slim-Framework-icon]][Slim-Framework-url]
+- [![JWT PHP Library][JWT-icon]][JWT-url]
+- [![ThunderClient][ThunderClient-icon]][ThunderClient-url]
 
 ### Installing
 
@@ -673,26 +675,6 @@ function markTokenAsUsed($conn, $token)
     For example:  
     `Authorization: Bearer your_token_here`
 
-## Contributing
+## Project Information
 
-Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c63ec426) for details on our code of conduct, and the process for submitting pull requests to us.
-
-## Versioning
-
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/your/project/tags).
-
-## Authors
-
-- **Billie Thompson** - _Initial work_ - [PurpleBooth](https://github.com/PurpleBooth)
-
-See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
-
-## Acknowledgments
-
-- Hat tip to anyone whose code was used
-- Inspiration
-- etc
+This project is developed as part of a midterm school requirement for ITPC 115. It is aimed at demonstrating knowledge and skills in building secure API endpoints and token management.
