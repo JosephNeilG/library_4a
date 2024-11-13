@@ -613,7 +613,7 @@ function isTokenUsed($token, $conn)
     $stmt = $conn->prepare("SELECT * FROM used_tokens WHERE token = :token");
     $stmt->bindParam(':token', $token);
     $stmt->execute();
-    return $stmt->rowCount() > 0;  // Returns true if token is found (i.e., used)
+    return $stmt->rowCount() > 0;
 }
 ```
 
@@ -626,7 +626,7 @@ function validateToken($token, $key)
     try {
         return JWT::decode($token, new Key($key, 'HS256'));
     } catch (Exception $e) {
-        return false;  // Token is invalid or expired
+        return false;
     }
 }
 ```
@@ -642,7 +642,6 @@ function markTokenAsUsed($conn, $token)
         $stmt->bindParam(':token', $token);
         $stmt->execute();
     } catch (PDOException $e) {
-        // Handle potential errors (optional)
         throw new Exception("Error marking token as used: " . $e->getMessage());
     }
 }
