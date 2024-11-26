@@ -167,7 +167,7 @@ The Library Management System provides a secure and efficient way to manage book
     }
     ```
 
-**b. User Authentication** - Authenticates a user and generates a JWT token for session management.
+**b. User Authentication** - Authenticates a user and generates a JWT token.
 
 - **Endpoint:** `/user/authenticate`
 - **Method:** `POST`
@@ -207,7 +207,7 @@ The Library Management System provides a secure and efficient way to manage book
 
 - **Endpoint:** `/user/display`
 - **Method:** `GET`
-- **Headers:** `Authorization: Bearer <insert generated jwtTokenHere from the users/authenticate>`
+- **Headers:** `Authorization: Bearer <insert generated jwtTokenHere>`
 
 - **Expected Response:**
 
@@ -252,7 +252,7 @@ The Library Management System provides a secure and efficient way to manage book
 
 - **Endpoint:** `/user/update`
 - **Method:** `PUT`
-- **Headers:** `Authorization: Bearer <insert generated jwtTokenHere from the users/authenticate>`
+- **Headers:** `Authorization: Bearer <insert generated jwtTokenHere>`
 - **Sample Payload:**
 
   ```json
@@ -280,7 +280,7 @@ The Library Management System provides a secure and efficient way to manage book
 
 - **Endpoint:** `/user/delete`
 - **Method:** `DELETE`
-- **Headers:** `Authorization: Bearer <insert generated jwtTokenHere from the users/authenticate>`
+- **Headers:** `Authorization: Bearer <insert generated jwtTokenHere>`
 
 - **Expected Response:**
 
@@ -303,7 +303,7 @@ The Library Management System provides a secure and efficient way to manage book
 
 - **Endpoint:** `/author/add`
 - **Method:** `POST`
-- **Headers:** `Authorization: Bearer <insert generated jwtTokenHere from the users/authenticate>`
+- **Headers:** `Authorization: Bearer <insert generated jwtTokenHere>`
 - **Sample Payload:**
 
   ```json
@@ -330,7 +330,7 @@ The Library Management System provides a secure and efficient way to manage book
 
 - **Endpoint:** `/author/display`
 - **Method:** `GET`
-- **Headers:** `Authorization: Bearer <insert generated jwtTokenHere from the users/authenticate>`
+- **Headers:** `Authorization: Bearer <insert generated jwtTokenHere>`
 
 - **Expected Response:**
 
@@ -355,7 +355,7 @@ The Library Management System provides a secure and efficient way to manage book
 
 - **Endpoint:** `/author/update`
 - **Method:** `PUT`
-- **Headers:** `Authorization: Bearer <insert generated jwtTokenHere from the users/authenticate>`
+- **Headers:** `Authorization: Bearer <insert generated jwtTokenHere>`
 - **Sample Payload:**
 
   ```json
@@ -383,7 +383,7 @@ The Library Management System provides a secure and efficient way to manage book
 
 - **Endpoint:** `/author/delete`
 - **Method:** `DELETE`
-- **Headers:** `Authorization: Bearer <insert generated jwtTokenHere from the users/authenticate>`
+- **Headers:** `Authorization: Bearer <insert generated jwtTokenHere>`
 - **Sample Payload:**
 
   ```json
@@ -414,7 +414,7 @@ The Library Management System provides a secure and efficient way to manage book
 
 - **Endpoint:** `/book/add`
 - **Method:** `POST`
-- **Headers:** `Authorization: Bearer <insert generated jwtTokenHere from the users/authenticate>`
+- **Headers:** `Authorization: Bearer <insert generated jwtTokenHere>`
 - **Sample Payload:**
 
   ```json
@@ -441,7 +441,7 @@ The Library Management System provides a secure and efficient way to manage book
 
 - **Endpoint:** `/book/display`
 - **Method:** `GET`
-- **Headers:** `Authorization: Bearer <insert generated jwtTokenHere from the users/authenticate>`
+- **Headers:** `Authorization: Bearer <insert generated jwtTokenHere>`
 
 - **Expected Response:**
 
@@ -466,7 +466,7 @@ The Library Management System provides a secure and efficient way to manage book
 
 - **Endpoint:** `/book/update`
 - **Method:** `PUT`
-- **Headers:** `Authorization: Bearer <insert generated jwtTokenHere from the users/authenticate>`
+- **Headers:** `Authorization: Bearer <insert generated jwtTokenHere>`
 - **Sample Payload:**
 
   ```json
@@ -494,7 +494,7 @@ The Library Management System provides a secure and efficient way to manage book
 
 - **Endpoint:** `/book/delete`
 - **Method:** `DELETE`
-- **Headers:** `Authorization: Bearer <insert generated jwtTokenHere from the users/authenticate>`
+- **Headers:** `Authorization: Bearer <insert generated jwtTokenHere>`
 - **Sample Payload:**
 
   ```json
@@ -525,7 +525,7 @@ The Library Management System provides a secure and efficient way to manage book
 
 - **Endpoint:** `/books_author/add`
 - **Method:** `POST`
-- **Headers:** `Authorization: Bearer <insert generated jwtTokenHere from the users/authenticate>`
+- **Headers:** `Authorization: Bearer <insert generated jwtTokenHere>`
 - **Sample Payload:**
 
   ```json
@@ -553,7 +553,7 @@ The Library Management System provides a secure and efficient way to manage book
 
 - **Endpoint:** `/books_author/display`
 - **Method:** `GET`
-- **Headers:** `Authorization: Bearer <insert generated jwtTokenHere from the users/authenticate>`
+- **Headers:** `Authorization: Bearer <insert generated jwtTokenHere>`
 
 - **Expected Response:**
 
@@ -579,7 +579,7 @@ The Library Management System provides a secure and efficient way to manage book
 
 - **Endpoint:** `/books_author/display_with_names`
 - **Method:** `GET`
-- **Headers:** `Authorization: Bearer <insert generated jwtTokenHere from the users/authenticate>`
+- **Headers:** `Authorization: Bearer <insert generated jwtTokenHere>`
 
 - **Expected Response:**
 
@@ -605,7 +605,7 @@ The Library Management System provides a secure and efficient way to manage book
 
 - **Endpoint:** `/books_author/update`
 - **Method:** `PUT`
-- **Headers:** `Authorization: Bearer <insert generated jwtTokenHere from the users/authenticate>`
+- **Headers:** `Authorization: Bearer <insert generated jwtTokenHere>`
 - **Sample Payload:**
 
   ```json
@@ -634,7 +634,7 @@ The Library Management System provides a secure and efficient way to manage book
 
 - **Endpoint:** `/books_author/delete`
 - **Method:** `DELETE`
-- **Headers:** `Authorization: Bearer <insert generated jwtTokenHere from the users/authenticate>`
+- **Headers:** `Authorization: Bearer <insert generated jwtTokenHere>`
 - **Sample Payload:**
 
   ```json
