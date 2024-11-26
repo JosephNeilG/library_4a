@@ -1105,12 +1105,39 @@ $app->post('/books_author/add', function (Request $request, Response $response, 
             return $response->withStatus(401);
         }
 
+        // Extract user ID from token for rotation
+        $userId = $decoded->data->userid;
+
         if (empty($bookId) || empty($authorId)) {
             $response->getBody()->write(json_encode(array(
                 "status" => "fail",
                 "data" => array("title" => "Book ID and Author ID are required")
             )));
             return $response->withStatus(400);
+        }
+
+        // Check if the book ID exists
+        $stmt = $conn->prepare("SELECT * FROM books WHERE bookid = :bookid");
+        $stmt->bindParam(':bookid', $bookId);
+        $stmt->execute();
+        if ($stmt->rowCount() == 0) {
+            $response->getBody()->write(json_encode(array(
+                "status" => "fail",
+                "data" => array("title" => "Book ID not found")
+            )));
+            return $response->withStatus(404);  // Not Found
+        }
+
+        // Check if the author ID exists
+        $stmt = $conn->prepare("SELECT * FROM authors WHERE authorid = :authorid");
+        $stmt->bindParam(':authorid', $authorId);
+        $stmt->execute();
+        if ($stmt->rowCount() == 0) {
+            $response->getBody()->write(json_encode(array(
+                "status" => "fail",
+                "data" => array("title" => "Author ID not found")
+            )));
+            return $response->withStatus(404);  // Not Found
         }
 
         // Check if the association already exists
@@ -1136,8 +1163,13 @@ $app->post('/books_author/add', function (Request $request, Response $response, 
         // Mark the token as used
         markTokenAsUsed($conn, $token);
 
+        // Generate a new token for the user
+        $newToken = generateToken($userId);
+
+        // Return success response with the new token
         $response->getBody()->write(json_encode(array(
             "status" => "success",
+            "token" => $newToken,
             "data" => null
         )));
     } catch (PDOException $e) {
@@ -1145,11 +1177,12 @@ $app->post('/books_author/add', function (Request $request, Response $response, 
             "status" => "fail",
             "data" => array("title" => $e->getMessage())
         )));
-        return $response->withStatus(500);
+        return $response->withStatus(500);  // Internal Server Error
     }
 
     return $response;
 });
+
 
 // display books_authors
 $app->get('/books_author/display', function (Request $request, Response $response, array $args) use ($servername, $username, $password, $dbname, $key) {
@@ -1179,6 +1212,9 @@ $app->get('/books_author/display', function (Request $request, Response $respons
             return $response->withStatus(401);  // Unauthorized
         }
 
+        // Extract user ID from token for rotation
+        $userId = $decoded->data->userid;
+
         // Fetch the data from book_authors table
         $stmt = $conn->prepare("SELECT collectionid, bookid, authorid FROM books_authors");
         $stmt->execute();
@@ -1187,9 +1223,13 @@ $app->get('/books_author/display', function (Request $request, Response $respons
         // Mark the token as used
         markTokenAsUsed($conn, $token);
 
+        // Generate a new token for the user 
+        $newToken = generateToken($userId);
+
         // Return the results as a response
         $response->getBody()->write(json_encode(array(
             "status" => "success",
+            "token" => $newToken,
             "data" => $bookAuthors
         )));
     } catch (PDOException $e) {
@@ -1232,6 +1272,9 @@ $app->get('/books_author/display_with_names', function (Request $request, Respon
             return $response->withStatus(401);  // Unauthorized
         }
 
+        // Extract user ID from token for rotation
+        $userId = $decoded->data->userid;
+
         // Join book_authors with books and authors tables to fetch names
         $stmt = $conn->prepare("
             SELECT 
@@ -1248,9 +1291,13 @@ $app->get('/books_author/display_with_names', function (Request $request, Respon
         // Mark the token as used
         markTokenAsUsed($conn, $token);
 
+        // Generate a new token for the user 
+        $newToken = generateToken($userId);
+
         // Return the results as a response
         $response->getBody()->write(json_encode(array(
             "status" => "success",
+            "token" => $newToken,
             "data" => $bookAuthorsWithNames
         )));
     } catch (PDOException $e) {
@@ -1296,6 +1343,9 @@ $app->put('/books_author/update', function (Request $request, Response $response
             )));
             return $response->withStatus(401);  // Unauthorized
         }
+
+        // Extract user ID from token for rotation
+        $userId = $decoded->data->userid;
 
         // Ensure the collection ID is provided
         if (empty($collectionId)) {
@@ -1350,9 +1400,13 @@ $app->put('/books_author/update', function (Request $request, Response $response
         // Mark the token as used
         markTokenAsUsed($conn, $token);
 
+        // Generate a new token for the user 
+        $newToken = generateToken($userId);
+
         // Return success response
         $response->getBody()->write(json_encode(array(
             "status" => "success",
+            "token" => $newToken,
             "data" => null
         )));
     } catch (PDOException $e) {
@@ -1397,6 +1451,9 @@ $app->delete('/books_author/delete', function (Request $request, Response $respo
             return $response->withStatus(401);
         }
 
+        // Extract user ID from token for rotation
+        $userId = $decoded->data->userid;
+
         // Check if collection ID is provided
         if (empty($collectionId)) {
             $response->getBody()->write(json_encode(array(
@@ -1427,8 +1484,13 @@ $app->delete('/books_author/delete', function (Request $request, Response $respo
         // Mark the token as used
         markTokenAsUsed($conn, $token);
 
+        // Generate a new token for the user 
+        $newToken = generateToken($userId);
+
+        // Return success response with the new token
         $response->getBody()->write(json_encode(array(
             "status" => "success",
+            "token" => $newToken,
             "data" => null
         )));
     } catch (PDOException $e) {
