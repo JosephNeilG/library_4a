@@ -661,7 +661,7 @@ The Library Management System provides a secure and efficient way to manage book
 
 ## Token Management
 
-**Token Rotation (generateToken)**
+**Token Rotation**
 The `generateToken` function creates a JWT (JSON Web Token) for user authentication, with a 2-hour expiration time, including the user ID in the payload, and ensuring the token is signed with a secure key using the HS256 algorithm.
 
 ```php
