@@ -19,6 +19,31 @@ $username = "root";
 $password = "";
 $dbname = "library";
 
+// Token rotation function for every endpoint
+function generateToken($userid)
+{
+    global $key;
+
+    // Token generation
+    $iat = time(); // Issued at time
+    $exp = $iat + 7200; // Expiration time (2 hours)
+
+    // Payload data for JWT
+    $payload = [
+        'iss' => 'http://library.org', // Issuer
+        'aud' => 'http://library.com', // Audience
+        'iat' => $iat,                 // Issued at time
+        'exp' => $exp,                 // Expiration time
+        'data' => [
+            'userid' => $userid        // User ID data
+        ]
+    ];
+
+    // Generate and return the token
+    return JWT::encode($payload, $key, 'HS256');
+}
+
+
 // Function to check if the token has been used
 function isTokenUsed($token, $conn)
 {
@@ -106,94 +131,78 @@ $app->post('/user/register', function (Request $request, Response $response, arr
     return $response;
 });
 
-// user authentication - after auth, grants token
 $app->post('/user/authenticate', function (Request $request, Response $response, array $args) use ($servername, $username, $password, $dbname, $key) {
     $data = json_decode($request->getBody());
     $usr = $data->username;
     $pass = $data->password;
 
     try {
+        // Create a new PDO connection
         $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
-        // set the PDO error mode to exception
         $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        $sql = "SELECT * FROM users WHERE username = '" . $usr . "' AND password = '" . hash('SHA256', $pass) . "'";
-        // use exec() because no results are returned
-        $stmt = $conn->prepare($sql);
+
+        // Prepare and execute the SQL query securely
+        $stmt = $conn->prepare("SELECT userid FROM users WHERE username = :username AND password = :password");
+        $stmt->bindParam(':username', $usr);
+        $hashedPassword = hash('SHA256', $pass); // Assign the hash to a variable
+        $stmt->bindParam(':password', $hashedPassword); // Pass the variable to bindParam
         $stmt->execute();
         $stmt->setFetchMode(PDO::FETCH_ASSOC);
         $data = $stmt->fetchAll();
 
-        if (count($data) == 1) {
-            $key = 'server_hack';
-            $iat = time();
-            $payload = [
-                'iss' => 'http://library.org',
-                'aud' => 'http://library.com',
-                'iat' => $iat,
-                'exp' => $iat + 3600,
-                'data' => array(
-                    "userid" => $data[0]['userid']
-                )
-            ];
-            $jwt = JWT::encode($payload, $key, 'HS256');
-            $response->getBody()->write(
-                json_encode(
-                    array(
-                        "status" => "success",
-                        "token" => $jwt,
-                        "data" => null
-                    )
-                )
-            );
+
+        if (count($data) === 1) {
+            // Generate a token using the helper function
+            $jwt = generateToken($data[0]['userid']);
+
+            // Return success response with the token
+            $response->getBody()->write(json_encode([
+                "status" => "success",
+                "token" => $jwt,
+                "data" => null
+            ]));
         } else {
-            $response->getBody()->write(
-                json_encode(
-                    array(
-                        "status" => "fail",
-                        "data" => array("title" => "Authentication Failed")
-                    )
-                )
-            );
+            // Authentication failed response
+            $response->getBody()->write(json_encode([
+                "status" => "fail",
+                "data" => ["title" => "Authentication Failed"]
+            ]));
         }
     } catch (PDOException $e) {
-        $response->getBody()->write(
-            json_encode(
-                array(
-                    "status" => "fail",
-                    "data" => array("title" => $e->getMessage())
-                )
-            )
-        );
+        // Handle database connection errors
+        $response->getBody()->write(json_encode([
+            "status" => "fail",
+            "data" => ["title" => $e->getMessage()]
+        ]));
     }
     return $response;
 });
+
 
 $app->get('/user/display', function (Request $request, Response $response, array $args) use ($servername, $username, $password, $dbname, $key) {
     $token = $request->getHeader('Authorization')[0] ?? '';
     $token = str_replace('Bearer ', '', $token);  // Remove "Bearer " from token if present
 
     try {
-        // Create a new PDO connection using the function
+        // Create a new PDO connection
         $conn = createDatabaseConnection($servername, $username, $password, $dbname);
 
         // Check if the token has already been used
         if (isTokenUsed($token, $conn)) {
-            // Token has already been used, return an error
-            $response->getBody()->write(json_encode(array(
+            $response->getBody()->write(json_encode([
                 "status" => "fail",
-                "data" => array("title" => "Token has already been used")
-            )));
+                "data" => ["title" => "Token has already been used"]
+            ]));
             return $response->withStatus(403);  // Forbidden
         }
 
         // Validate the token
         $decoded = validateToken($token, $key);
         if (!$decoded) {
-            // Token validation failed (invalid or expired token)
-            $response->getBody()->write(json_encode(array(
+            $response->getBody()->write(json_encode([
                 "status" => "fail",
-                "data" => array("title" => "Invalid or expired token")
-            )));
+                "data" => ["title" => "Invalid or expired token"]
+            ]));
             return $response->withStatus(401);  // Unauthorized
         }
 
@@ -205,22 +214,27 @@ $app->get('/user/display', function (Request $request, Response $response, array
         // Mark the token as used
         markTokenAsUsed($conn, $token);
 
-        // Return the users as a response
-        $response->getBody()->write(json_encode(array(
+        // Generate a new token using the function
+        $newToken = generateToken($decoded->data->userid);
+
+        // Return the users and the new token in the response
+        $response->getBody()->write(json_encode([
             "status" => "success",
+            "token" => $newToken,
             "data" => $users
-        )));
+
+        ]));
+        return $response->withStatus(200);  // Success
     } catch (PDOException $e) {
         // Handle DB errors
-        $response->getBody()->write(json_encode(array(
+        $response->getBody()->write(json_encode([
             "status" => "fail",
-            "data" => array("title" => $e->getMessage())
-        )));
+            "data" => ["title" => $e->getMessage()]
+        ]));
         return $response->withStatus(500);  // Internal Server Error
     }
-
-    return $response;
 });
+
 
 
 // Update user info (username and/or password) with token validation and token cannot be reused
