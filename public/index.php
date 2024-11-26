@@ -785,6 +785,9 @@ $app->post('/book/add', function (Request $request, Response $response, array $a
             return $response->withStatus(401);  // Unauthorized
         }
 
+        // Extract user ID from token for rotation
+        $userId = $decoded->data->userid;
+
         // Ensure title is provided
         if (empty($title)) {
             $response->getBody()->write(json_encode(array(
@@ -816,9 +819,13 @@ $app->post('/book/add', function (Request $request, Response $response, array $a
         // Mark the token as used
         markTokenAsUsed($conn, $token);
 
-        // Return success response
+        // Generate a new token for the user
+        $newToken = generateToken($userId);
+
+        // Return success response with the new token
         $response->getBody()->write(json_encode(array(
             "status" => "success",
+            "token" => $newToken,
             "data" => null
         )));
     } catch (PDOException $e) {
@@ -860,6 +867,9 @@ $app->get('/book/display', function (Request $request, Response $response, array
             return $response->withStatus(401);  // Unauthorized
         }
 
+        // Extract user ID from token for rotation
+        $userId = $decoded->data->userid;
+
         // Fetch the books from the database
         $stmt = $conn->prepare("SELECT bookid, title FROM books");
         $stmt->execute();
@@ -868,9 +878,13 @@ $app->get('/book/display', function (Request $request, Response $response, array
         // Mark the token as used
         markTokenAsUsed($conn, $token);
 
-        // Return the books as a response
+        // Generate a new token for the user 
+        $newToken = generateToken($userId);
+
+        // Return success response with the new token
         $response->getBody()->write(json_encode(array(
             "status" => "success",
+            "token" => $newToken,
             "data" => $books
         )));
     } catch (PDOException $e) {
@@ -915,6 +929,9 @@ $app->put('/book/update', function (Request $request, Response $response, array 
             return $response->withStatus(401);  // Unauthorized
         }
 
+        // Extract user ID from token for rotation
+        $userId = $decoded->data->userid;
+
         // Ensure the book ID is provided
         if (empty($bookId)) {
             $response->getBody()->write(json_encode(array(
@@ -956,9 +973,13 @@ $app->put('/book/update', function (Request $request, Response $response, array 
         // Mark the token as used
         markTokenAsUsed($conn, $token);
 
-        // Return success response
+        // Generate a new token for the user 
+        $newToken = generateToken($userId);
+
+        // Return success response with the new token
         $response->getBody()->write(json_encode(array(
             "status" => "success",
+            "token" => $newToken,
             "data" => null
         )));
     } catch (PDOException $e) {
@@ -1002,6 +1023,9 @@ $app->delete('/book/delete', function (Request $request, Response $response, arr
             return $response->withStatus(401);  // Unauthorized
         }
 
+        // Extract user ID from token for rotation
+        $userId = $decoded->data->userid;
+
         // Ensure the book ID is provided
         if (empty($bookId)) {
             $response->getBody()->write(json_encode(array(
@@ -1033,9 +1057,13 @@ $app->delete('/book/delete', function (Request $request, Response $response, arr
         // Mark the token as used
         markTokenAsUsed($conn, $token);
 
-        // Return success response
+        // Generate a new token for the user 
+        $newToken = generateToken($userId);
+
+        // Return success response with the new token
         $response->getBody()->write(json_encode(array(
             "status" => "success",
+            "token" => $newToken,
             "data" => null
         )));
     } catch (PDOException $e) {
