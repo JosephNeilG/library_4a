@@ -417,7 +417,7 @@ $app->delete('/user/delete', function (Request $request, Response $response, arr
     return $response;
 });
 
-// add author
+// Add author
 $app->post('/author/add', function (Request $request, Response $response, array $args) use ($servername, $username, $password, $dbname, $key) {
     $token = $request->getHeader('Authorization')[0] ?? '';
     $token = str_replace('Bearer ', '', $token);
@@ -448,6 +448,9 @@ $app->post('/author/add', function (Request $request, Response $response, array 
             )));
             return $response->withStatus(401);  // Unauthorized
         }
+
+        // Extract user ID from token
+        $userId = $decoded->data->userid;
 
         // Ensure name is provided
         if (empty($name)) {
@@ -481,9 +484,13 @@ $app->post('/author/add', function (Request $request, Response $response, array 
         // Mark the token as used
         markTokenAsUsed($conn, $token);
 
-        // Return success response
+        // Generate a new token with updated user information (if necessary)
+        $newToken = generateToken($userId);
+
+        // Return success response with the new token
         $response->getBody()->write(json_encode(array(
             "status" => "success",
+            "token" => $newToken,
             "data" => null
         )));
     } catch (PDOException $e) {
@@ -528,18 +535,25 @@ $app->get('/author/display', function (Request $request, Response $response, arr
             return $response->withStatus(401);  // Unauthorized
         }
 
-        // Fetch the users from the database
+        // Extract user ID from token for rotation
+        $userId = $decoded->data->userid;
+
+        // Fetch the authors from the database
         $stmt = $conn->prepare("SELECT authorid, name FROM authors");
         $stmt->execute();
-        $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $authors = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
         // Mark the token as used
         markTokenAsUsed($conn, $token);
 
-        // Return the users as a response
+        // Generate a new token for the user
+        $newToken = generateToken($userId);
+
+        // Return the authors as a response along with the new token
         $response->getBody()->write(json_encode(array(
             "status" => "success",
-            "data" => $users
+            "token" => $newToken,
+            "data" => $authors
         )));
     } catch (PDOException $e) {
         // Handle DB errors
@@ -552,6 +566,7 @@ $app->get('/author/display', function (Request $request, Response $response, arr
 
     return $response;
 });
+
 
 // Update author info
 $app->put('/author/update', function (Request $request, Response $response, array $args) use ($servername, $username, $password, $dbname, $key) {
@@ -585,6 +600,9 @@ $app->put('/author/update', function (Request $request, Response $response, arra
             )));
             return $response->withStatus(401);  // Unauthorized
         }
+
+        // Extract user ID from token for rotation
+        $userId = $decoded->data->userid;
 
         // Ensure the author ID is provided
         if (empty($authorId)) {
@@ -627,9 +645,13 @@ $app->put('/author/update', function (Request $request, Response $response, arra
         // Mark the token as used
         markTokenAsUsed($conn, $token);
 
-        // Return success response
+        // Generate a new token for the user
+        $newToken = generateToken($userId);
+
+        // Return success response with the new token
         $response->getBody()->write(json_encode(array(
             "status" => "success",
+            "token" => $newToken,
             "data" => null
         )));
     } catch (PDOException $e) {
@@ -643,6 +665,7 @@ $app->put('/author/update', function (Request $request, Response $response, arra
 
     return $response;
 });
+
 
 // Delete author
 $app->delete('/author/delete', function (Request $request, Response $response, array $args) use ($servername, $username, $password, $dbname, $key) {
@@ -676,6 +699,9 @@ $app->delete('/author/delete', function (Request $request, Response $response, a
             return $response->withStatus(401);  // Unauthorized
         }
 
+        // Extract user ID from token for rotation
+        $userId = $decoded->data->userid;
+
         // Ensure the author ID is provided
         if (empty($authorId)) {
             $response->getBody()->write(json_encode(array(
@@ -707,9 +733,13 @@ $app->delete('/author/delete', function (Request $request, Response $response, a
         // Mark the token as used
         markTokenAsUsed($conn, $token);
 
-        // Return success response
+        // Generate a new token for the user
+        $newToken = generateToken($userId);
+
+        // Return success response with the new token
         $response->getBody()->write(json_encode(array(
             "status" => "success",
+            "token" => $newToken,
             "data" => null
         )));
     } catch (PDOException $e) {
@@ -723,6 +753,7 @@ $app->delete('/author/delete', function (Request $request, Response $response, a
 
     return $response;
 });
+
 
 // Add book
 $app->post('/book/add', function (Request $request, Response $response, array $args) use ($servername, $username, $password, $dbname, $key) {
