@@ -235,8 +235,6 @@ $app->get('/user/display', function (Request $request, Response $response, array
     }
 });
 
-
-
 // Update user info (username and/or password) with token validation and token cannot be reused
 $app->put('/user/update', function (Request $request, Response $response, array $args) use ($servername, $username, $password, $dbname, $key) {
     $token = $request->getHeader('Authorization')[0] ?? '';
@@ -325,12 +323,16 @@ $app->put('/user/update', function (Request $request, Response $response, array 
         }
         $stmt->execute();
 
-        // Mark the token as used
+        // Mark the old token as used
         markTokenAsUsed($conn, $token);
 
-        // Return success response
+        // Generate a new token with updated user data
+        $newToken = generateToken($userId);
+
+        // Return the success response with the new token
         $response->getBody()->write(json_encode(array(
             "status" => "success",
+            "token" => $newToken,
             "data" => null
         )));
     } catch (PDOException $e) {
@@ -344,6 +346,7 @@ $app->put('/user/update', function (Request $request, Response $response, array 
 
     return $response;
 });
+
 
 // Delete user by userid
 $app->delete('/user/delete', function (Request $request, Response $response, array $args) use ($servername, $username, $password, $dbname, $key) {
