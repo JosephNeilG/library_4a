@@ -682,7 +682,6 @@ function generateToken($userid)
         ]
     ];
 
-    // Generate and return the token
     return JWT::encode($payload, $key, 'HS256');
 }
 ```
@@ -735,7 +734,7 @@ function markTokenAsUsed($conn, $token)
 ## Troubleshooting / FAQ
 
 - **Q: How do I regenerate an expired token?**  
-  **A:** To regenerate an expired token, you need to log in again by providing valid credentials. The new token will be issued upon successful authentication.
+  **A:** To regenerate an expired token, simply use a valid token to make any request to the API. The system will validate your token and automatically generate a new one upon successful processing of the request, ensuring continuous access without needing to log in again.
 
 - **Q: Why am I getting a "Token is invalid" error?**  
   **A:** This error occurs if the token is either malformed or has expired. Ensure the token is correctly formatted and that it is not expired. If necessary, regenerate a new token.
