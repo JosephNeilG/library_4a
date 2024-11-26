@@ -216,6 +216,7 @@ The Library Management System provides a secure and efficient way to manage book
     ```json
     {
       "status": "success",
+      "token": "jwtTokenHere",
       "data": [
         {
           "userid": 1,
@@ -268,6 +269,7 @@ The Library Management System provides a secure and efficient way to manage book
     ```json
     {
       "status": "success",
+      "token": "jwtTokenHere",
       "data": null
     }
     ```
@@ -317,6 +319,7 @@ The Library Management System provides a secure and efficient way to manage book
     ```json
     {
       "status": "success",
+      "token": "jwtTokenHere",
       "data": null
     }
     ```
@@ -336,6 +339,7 @@ The Library Management System provides a secure and efficient way to manage book
     ```json
     {
       "status": "success",
+      "token": "jwtTokenHere",
       "data": [
         {
           "authorid": 1,
@@ -368,6 +372,7 @@ The Library Management System provides a secure and efficient way to manage book
     ```json
     {
       "status": "success",
+      "token": "jwtTokenHere",
       "data": null
     }
     ```
@@ -394,6 +399,7 @@ The Library Management System provides a secure and efficient way to manage book
     ```json
     {
       "status": "success",
+      "token": "jwtTokenHere",
       "data": null
     }
     ```
@@ -424,6 +430,7 @@ The Library Management System provides a secure and efficient way to manage book
     ```json
     {
       "status": "success",
+      "token": "jwtTokenHere",
       "data": null
     }
     ```
@@ -443,6 +450,7 @@ The Library Management System provides a secure and efficient way to manage book
     ```json
     {
       "status": "success",
+      "token": "jwtTokenHere",
       "data": [
         {
           "bookid": 1,
@@ -475,6 +483,7 @@ The Library Management System provides a secure and efficient way to manage book
     ```json
     {
       "status": "success",
+      "token": "jwtTokenHere",
       "data": null
     }
     ```
@@ -501,6 +510,7 @@ The Library Management System provides a secure and efficient way to manage book
     ```json
     {
       "status": "success",
+      "token": "jwtTokenHere",
       "data": null
     }
     ```
@@ -532,6 +542,7 @@ The Library Management System provides a secure and efficient way to manage book
     ```json
     {
       "status": "success",
+      "token": "jwtTokenHere",
       "data": null
     }
     ```
@@ -551,6 +562,7 @@ The Library Management System provides a secure and efficient way to manage book
     ```json
     {
       "status": "success",
+      "token": "jwtTokenHere",
       "data": [
         {
           "collectionid": 1,
@@ -576,6 +588,7 @@ The Library Management System provides a secure and efficient way to manage book
     ```json
     {
       "status": "success",
+      "token": "jwtTokenHere",
       "data": [
         {
           "collectionid": 1,
@@ -610,6 +623,7 @@ The Library Management System provides a secure and efficient way to manage book
     ```json
     {
       "status": "success",
+      "token": "jwtTokenHere",
       "data": null
     }
     ```
@@ -636,6 +650,7 @@ The Library Management System provides a secure and efficient way to manage book
     ```json
     {
       "status": "success",
+      "token": "jwtTokenHere",
       "data": null
     }
     ```
