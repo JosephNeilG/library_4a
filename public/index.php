@@ -1504,4 +1504,87 @@ $app->delete('/books_author/delete', function (Request $request, Response $respo
     return $response;
 });
 
+// Combined endpoint to fetch books, authors, and book-author relationships
+$app->get('/dashboard/data', function (Request $request, Response $response, array $args) use ($servername, $username, $password, $dbname, $key) {
+    $token = $request->getHeader('Authorization')[0] ?? '';
+    $token = str_replace('Bearer ', '', $token);
+
+    try {
+        // Create a new PDO connection using the function
+        $conn = createDatabaseConnection($servername, $username, $password, $dbname);
+
+        // Check if the token has already been used
+        if (isTokenUsed($token, $conn)) {
+            $response->getBody()->write(json_encode(array(
+                "status" => "fail",
+                "data" => array("title" => "Token has already been used")
+            )));
+            return $response->withStatus(403);  // Forbidden
+        }
+
+        // Validate the token
+        $decoded = validateToken($token, $key);
+        if (!$decoded) {
+            $response->getBody()->write(json_encode(array(
+                "status" => "fail",
+                "data" => array("title" => "Invalid or expired token")
+            )));
+            return $response->withStatus(401);  // Unauthorized
+        }
+
+        // Extract user ID from token for rotation
+        $userId = $decoded->data->userid;
+
+        // Fetch data from the authors table
+        $stmt = $conn->prepare("SELECT authorid, name FROM authors");
+        $stmt->execute();
+        $authors = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        // Fetch data from the books table
+        $stmt = $conn->prepare("SELECT bookid, title FROM books");
+        $stmt->execute();
+        $books = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        // Fetch data from the books_authors table (joining books and authors)
+        $stmt = $conn->prepare("
+            SELECT 
+                ba.collectionid, 
+                b.title AS book_name, 
+                a.name AS author_name 
+            FROM books_authors ba
+            JOIN books b ON ba.bookid = b.bookid
+            JOIN authors a ON ba.authorid = a.authorid
+        ");
+        $stmt->execute();
+        $bookAuthorsWithNames = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        // Mark the token as used
+        markTokenAsUsed($conn, $token);
+
+        // Generate a new token for the user
+        $newToken = generateToken($userId);
+
+        // Return all the fetched data as a single response
+        $response->getBody()->write(json_encode(array(
+            "status" => "success",
+            "token" => $newToken,
+            "data" => array(
+                'authors' => $authors,
+                'books' => $books,
+                'bookAuthors' => $bookAuthorsWithNames
+            )
+        )));
+    } catch (PDOException $e) {
+        // Handle DB errors
+        $response->getBody()->write(json_encode(array(
+            "status" => "fail",
+            "data" => array("title" => $e->getMessage())
+        )));
+        return $response->withStatus(500);  // Internal Server Error
+    }
+
+    return $response;
+});
+
+
 $app->run();
