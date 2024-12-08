@@ -619,7 +619,7 @@ $app->put('/author/update', function (Request $request, Response $response, arra
             $stmt = $conn->prepare("SELECT * FROM authors WHERE authorid = :authorid");
             $stmt->bindParam(':authorid', $authorId);
             $stmt->execute();
-
+        
             if ($stmt->rowCount() == 0) {
                 // Author ID does not exist
                 $response->getBody()->write(json_encode(array(
@@ -628,7 +628,22 @@ $app->put('/author/update', function (Request $request, Response $response, arra
                 )));
                 return $response->withStatus(404);  // Not Found
             }
-
+        
+            // Check if the new name already exists
+            $stmt = $conn->prepare("SELECT * FROM authors WHERE name = :name AND authorid != :authorid");
+            $stmt->bindParam(':name', $newName);
+            $stmt->bindParam(':authorid', $authorId); // Exclude the current author from the check
+            $stmt->execute();
+        
+            if ($stmt->rowCount() > 0) {
+                // Author name already exists
+                $response->getBody()->write(json_encode(array(
+                    "status" => "fail",
+                    "data" => array("title" => "Author name already exists")
+                )));
+                return $response->withStatus(400);  // Bad Request
+            }
+        
             // Update the author's name
             $stmt = $conn->prepare("UPDATE authors SET name = :name WHERE authorid = :authorid");
             $stmt->bindParam(':name', $newName);
@@ -641,6 +656,7 @@ $app->put('/author/update', function (Request $request, Response $response, arra
             )));
             return $response->withStatus(400);  // Bad Request
         }
+        
 
         // Mark the token as used
         markTokenAsUsed($conn, $token);
