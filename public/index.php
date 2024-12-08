@@ -973,6 +973,21 @@ $app->put('/book/update', function (Request $request, Response $response, array 
                 return $response->withStatus(404);  // Not Found
             }
 
+            // Check if the new title already exists
+            $stmt = $conn->prepare("SELECT * FROM books WHERE title = :title AND bookid != :bookid");
+            $stmt->bindParam(':title', $newTitle);
+            $stmt->bindParam(':bookid', $bookId); // Exclude the current book
+            $stmt->execute();
+
+            if ($stmt->rowCount() > 0) {
+                // Title already exists
+                $response->getBody()->write(json_encode(array(
+                    "status" => "fail",
+                    "data" => array("title" => "Book title already exists")
+                )));
+                return $response->withStatus(400);  // Bad Request
+            }
+
             // Update the book's title
             $stmt = $conn->prepare("UPDATE books SET title = :title WHERE bookid = :bookid");
             $stmt->bindParam(':title', $newTitle);
