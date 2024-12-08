@@ -1160,17 +1160,31 @@ $app->post('/books_author/add', function (Request $request, Response $response, 
         $stmt->bindParam(':authorid', $authorId);
         $stmt->execute();
 
+        // Fetch the inserted association details
+        $stmt = $conn->prepare("
+        SELECT ba.collectionid, b.title AS book_name, a.name AS author_name
+        FROM books_authors ba
+        INNER JOIN books b ON ba.bookid = b.bookid
+        INNER JOIN authors a ON ba.authorid = a.authorid
+        WHERE ba.bookid = :bookid AND ba.authorid = :authorid
+        ");
+
+        $stmt->bindParam(':bookid', $bookId);
+        $stmt->bindParam(':authorid', $authorId);
+        $stmt->execute();
+        $association = $stmt->fetch(PDO::FETCH_ASSOC);
+
         // Mark the token as used
         markTokenAsUsed($conn, $token);
 
         // Generate a new token for the user
         $newToken = generateToken($userId);
 
-        // Return success response with the new token
+        // Return success response with the new token and association details
         $response->getBody()->write(json_encode(array(
             "status" => "success",
             "token" => $newToken,
-            "data" => null
+            "data" => $association
         )));
     } catch (PDOException $e) {
         $response->getBody()->write(json_encode(array(
@@ -1182,6 +1196,7 @@ $app->post('/books_author/add', function (Request $request, Response $response, 
 
     return $response;
 });
+
 
 
 // display books_authors
