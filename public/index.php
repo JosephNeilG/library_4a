@@ -165,7 +165,7 @@ $app->post('/user/authenticate', function (Request $request, Response $response,
             // Authentication failed response
             $response->getBody()->write(json_encode([
                 "status" => "fail",
-                "data" => ["title" => "Authentication Failed"]
+                "data" => ["title" => "Username or password incorrect."]
             ]));
         }
     } catch (PDOException $e) {
